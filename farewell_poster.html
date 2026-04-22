@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Farewell – PGDM Batch 24–26</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1a0f0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .poster {
+    width: 700px;
+    min-height: 980px;
+    position: relative;
+    background: #fdf6ec;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Deep jewel-toned background */
+  .poster-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, #3b1e0c 0%, transparent 60%),
+      radial-gradient(ellipse at 0% 100%, #1f0f2e 0%, transparent 55%),
+      radial-gradient(ellipse at 100% 100%, #1a0a0a 0%, transparent 55%),
+      linear-gradient(170deg, #fdf3e3 0%, #f5e8cc 40%, #ede0c0 70%, #e8d5a8 100%);
+    z-index: 0;
+  }
+
+  /* Subtle noise grain overlay */
+  .poster-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* OUTER BORDER */
+  .border-outer {
+    position: absolute;
+    inset: 16px;
+    border: 2px solid #8b5e2d;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .border-inner {
+    position: absolute;
+    inset: 22px;
+    border: 1px solid rgba(139,94,45,0.45);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Corner ornaments */
+  .corner {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    z-index: 2;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner-tl { top: 10px; left: 10px; }
+  .corner-tr { top: 10px; right: 10px; transform: scaleX(-1); }
+  .corner-bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
+  .corner-br { bottom: 10px; right: 10px; transform: scale(-1,-1); }
+
+  /* Mandala / medallion top */
+  .medallion {
+    position: relative;
+    z-index: 3;
+    margin-top: 52px;
+    width: 90px;
+    height: 90px;
+    animation: spin-slow 30s linear infinite;
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .medallion-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spin-slow 30s linear infinite reverse;
+  }
+  .medallion-dot {
+    width: 14px; height: 14px;
+    background: #8b5e2d;
+    border-radius: 50%;
+  }
+
+  /* Dividers */
+  .divider {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 580px;
+    margin: 0 auto;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #8b5e2d, transparent);
+  }
+  .divider-diamond {
+    width: 8px; height: 8px;
+    background: #8b5e2d;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* Kicker line */
+  .kicker {
+    position: relative;
+    z-index: 3;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: #8b5e2d;
+    text-transform: uppercase;
+    margin-top: 18px;
+    text-align: center;
+  }
+
+  /* Main title */
+  .title-block {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 40px;
+  }
+  .title-main {
+    font-family: 'Cinzel', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: #2a1206;
+    line-height: 1.05;
+    letter-spacing: 3px;
+  }
+  .title-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: #5c3418;
+    letter-spacing: 1px;
+    margin-top: 6px;
+  }
+  .batch-tag {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 13.5px;
+    letter-spacing: 4px;
+    color: #fff8ee;
+    background: #8b5e2d;
+    padding: 5px 20px;
+    margin-top: 14px;
+  }
+
+  /* Decorative floral row */
+  .floral-row {
+    position: relative;
+    z-index: 3;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  /* Details grid */
+  .details-wrap {
+    position: relative;
+    z-index: 3;
+    margin-top: 24px;
+    width: 580px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid rgba(139,94,45,0.5);
+  }
+  .detail-cell {
+    padding: 18px 24px;
+    text-align: center;
+    border: 1px solid rgba(139,94,45,0.25);
+  }
+  .detail-cell:nth-child(odd) { background: rgba(139,94,45,0.06); }
+  .detail-icon {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+  .detail-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 3.5px;
+    color: #8b5e2d;
+    text-transform: uppercase;
+  }
+  .detail-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2a1206;
+    margin-top: 2px;
+    line-height: 1.2;
+  }
+  .detail-value.small { font-size: 16px; }
+
+  /* Dress code band */
+  .dresscode-wrap {
+    position: relative;
+    z-index: 3;
+    width: 580px;
+    margin-top: 22px;
+    background: linear-gradient(135deg, #2a1206 0%, #4a2010 50%, #2a1206 100%);
+    padding: 16px 30px;
+    text-align: center;
+    border: 1px solid #8b5e2d;
+  }
+  .dresscode-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: rgba(255,240,200,0.6);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .dresscode-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: #f5dfa0;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .dresscode-icons {
+    margin-top: 6px;
+    font-size: 18px;
+    letter-spacing: 8px;
+  }
+
+  /* Quote / tagline */
+  .tagline {
+    position: relative;
+    z-index: 3;
+    margin-top: 28px;
+    text-align: center;
+    padding: 0 60px;
+  }
+  .tagline-text {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: #4a2a10;
+    line-height: 1.6;
+  }
+  .tagline-text em {
+    color: #8b5e2d;
+    font-style: normal;
+  }
+
+  /* Bottom seal */
+  .bottom-seal {
+    position: relative;
+    z-index: 3;
+    margin-top: 26px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  .seal-ring {
+    width: 64px;
+    height: 64px;
+    border: 2px solid #8b5e2d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+  }
+  .seal-ring::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(139,94,45,0.5);
+    border-radius: 50%;
+  }
+  .seal-inner-text {
+    font-family: 'Cinzel', serif;
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    color: #8b5e2d;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .bottom-text {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #8b5e2d;
+    margin-top: 12px;
+    opacity: 0.8;
+  }
+
+  /* Floating petal particles */
+  .petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+  }
+  .petal {
+    position: absolute;
+    width: 6px;
+    height: 10px;
+    background: rgba(184,115,51,0.18);
+    border-radius: 60% 40% 60% 40%;
+    animation: fall linear infinite;
+    transform-origin: center;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(1010px) rotate(720deg); opacity: 0; }
+  }
+
+  /* Animate poster in */
+  .poster { animation: poster-in 1.2s cubic-bezier(0.16,1,0.3,1) both; }
+  @keyframes poster-in {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .stagger-1 { animation: fade-up 0.7s 0.2s both; }
+  .stagger-2 { animation: fade-up 0.7s 0.4s both; }
+  .stagger-3 { animation: fade-up 0.7s 0.6s both; }
+  .stagger-4 { animation: fade-up 0.7s 0.8s both; }
+  .stagger-5 { animation: fade-up 0.7s 1.0s both; }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+  <div class="poster-bg"></div>
+
+  <!-- Falling petals -->
+  <div class="petals" id="petals"></div>
+
+  <!-- Outer border frames -->
+  <div class="border-outer"></div>
+  <div class="border-inner"></div>
+
+  <!-- Corner ornaments -->
+  <div class="corner corner-tl">
+    <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4 L22 4 L22 6 L6 6 L6 22 L4 22 Z" fill="#8b5e2d"/>
+      <path d="M4 4 L14 4" stroke="#8b5e2d" stroke-width="1.5"/>
+      <path d="M4 4 L4 14" stroke="#8b5e2d" stroke-width="1.5"/>
+      <circle cx="4" cy="4" r="2.5" fill="#8b5e2d"/>
+      <path d="M10 10 Q22 10 22 22" stroke="#8b5e2d" stroke-width="0.8" fill="none" stroke-dasharray="2 2"/>
+      <circle cx="14" cy="4" r="1.5" fill="#8b5e2d" opacity="0.5"/>
+      <circle cx="4" cy="14" r="1.5" fill="#8b5e2d" opacity="0.5"/>
+      <!-- lotus petal hint -->
+      <path d="M12 12 Q16 8 20 12 Q16 16 12 12Z" fill="#8b5e2d" opacity="0.3"/>
+      <path d="M12 12 Q8 16 12 20 Q16 16 12 12Z" fill="#8b5e2d" opacity="0.3"/>
+    </svg>
+  </div>
+  <div class="corner corner-tr">
+    <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4 L22 4 L22 6 L6 6 L6 22 L4 22 Z" fill="#8b5e2d"/>
+      <path d="M4 4 L14 4" stroke="#8b5e2d" stroke-width="1.5"/>
+      <path d="M4 4 L4 14" stroke="#8b5e2d" stroke-width="1.5"/>
+      <circle cx="4" cy="4" r="2.5" fill="#8b5e2d"/>
+      <path d="M10 10 Q22 10 22 22" stroke="#8b5e2d" stroke-width="0.8" fill="none" stroke-dasharray="2 2"/>
+      <circle cx="14" cy="4" r="1.5" fill="#8b5e2d" opacity="0.5"/>
+      <circle cx="4" cy="14" r="1.5" fill="#8b5e2d" opacity="0.5"/>
+      <path d="M12 12 Q16 8 20 12 Q16 16 12 12Z" fill="#8b5e2d" opacity="0.3"/>
+      <path d="M12 12 Q8 16 12 20 Q16 16 12 12Z" fill="#8b5e2d" opacity="0.3"/>
+    </svg>
+  </div>
+  <div class="corner corner-bl">
+    <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4 L22 4 L22 6 L6 6 L6 22 L4 22 Z" fill="#8b5e2d"/>
+      <path d="M4 4 L14 4" stroke="#8b5e2d" stroke-width="1.5"/>
+      <path d="M4 4 L4 14" stroke="#8b5e2d" stroke-width="1.5"/>
+      <circle cx="4" cy="4" r="2.5" fill="#8b5e2d"/>
+      <path d="M10 10 Q22 10 22 22" stroke="#8b5e2d" stroke-width="0.8" fill="none" stroke-dasharray="2 2"/>
+      <circle cx="14" cy="4" r="1.5" fill="#8b5e2d" opacity="0.5"/>
+      <circle cx="4" cy="14" r="1.5" fill="#8b5e2d" opacity="0.5"/>
+      <path d="M12 12 Q16 8 20 12 Q16 16 12 12Z" fill="#8b5e2d" opacity="0.3"/>
+      <path d="M12 12 Q8 16 12 20 Q16 16 12 12Z" fill="#8b5e2d" opacity="0.3"/>
+    </svg>
+  </div>
+  <div class="corner corner-br">
+    <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4 L22 4 L22 6 L6 6 L6 22 L4 22 Z" fill="#8b5e2d"/>
+      <path d="M4 4 L14 4" stroke="#8b5e2d" stroke-width="1.5"/>
+      <path d="M4 4 L4 14" stroke="#8b5e2d" stroke-width="1.5"/>
+      <circle cx="4" cy="4" r="2.5" fill="#8b5e2d"/>
+      <path d="M10 10 Q22 10 22 22" stroke="#8b5e2d" stroke-width="0.8" fill="none" stroke-dasharray="2 2"/>
+      <circle cx="14" cy="4" r="1.5" fill="#8b5e2d" opacity="0.5"/>
+      <circle cx="4" cy="14" r="1.5" fill="#8b5e2d" opacity="0.5"/>
+      <path d="M12 12 Q16 8 20 12 Q16 16 12 12Z" fill="#8b5e2d" opacity="0.3"/>
+      <path d="M12 12 Q8 16 12 20 Q16 16 12 12Z" fill="#8b5e2d" opacity="0.3"/>
+    </svg>
+  </div>
+
+  <!-- Spinning medallion -->
+  <div class="medallion stagger-1">
+    <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer ring -->
+      <circle cx="45" cy="45" r="42" fill="none" stroke="#8b5e2d" stroke-width="1.2"/>
+      <circle cx="45" cy="45" r="37" fill="none" stroke="#8b5e2d" stroke-width="0.6" stroke-dasharray="3 3"/>
+      <!-- 8 lotus petals -->
+      <g>
+        <ellipse cx="45" cy="18" rx="5" ry="12" fill="#8b5e2d" opacity="0.35" transform="rotate(0 45 45)"/>
+        <ellipse cx="45" cy="18" rx="5" ry="12" fill="#8b5e2d" opacity="0.35" transform="rotate(45 45 45)"/>
+        <ellipse cx="45" cy="18" rx="5" ry="12" fill="#8b5e2d" opacity="0.35" transform="rotate(90 45 45)"/>
+        <ellipse cx="45" cy="18" rx="5" ry="12" fill="#8b5e2d" opacity="0.35" transform="rotate(135 45 45)"/>
+        <ellipse cx="45" cy="18" rx="5" ry="12" fill="#8b5e2d" opacity="0.35" transform="rotate(180 45 45)"/>
+        <ellipse cx="45" cy="18" rx="5" ry="12" fill="#8b5e2d" opacity="0.35" transform="rotate(225 45 45)"/>
+        <ellipse cx="45" cy="18" rx="5" ry="12" fill="#8b5e2d" opacity="0.35" transform="rotate(270 45 45)"/>
+        <ellipse cx="45" cy="18" rx="5" ry="12" fill="#8b5e2d" opacity="0.35" transform="rotate(315 45 45)"/>
+      </g>
+      <!-- Inner dots -->
+      <circle cx="45" cy="45" r="8" fill="#8b5e2d" opacity="0.2"/>
+      <circle cx="45" cy="45" r="4" fill="#8b5e2d" opacity="0.6"/>
+      <circle cx="45" cy="45" r="1.8" fill="#fdf3e3"/>
+      <!-- 8 small outer dots -->
+      <circle cx="45" cy="5"  r="2" fill="#8b5e2d" opacity="0.5" transform="rotate(0 45 45)"/>
+      <circle cx="45" cy="5"  r="2" fill="#8b5e2d" opacity="0.5" transform="rotate(45 45 45)"/>
+      <circle cx="45" cy="5"  r="2" fill="#8b5e2d" opacity="0.5" transform="rotate(90 45 45)"/>
+      <circle cx="45" cy="5"  r="2" fill="#8b5e2d" opacity="0.5" transform="rotate(135 45 45)"/>
+      <circle cx="45" cy="5"  r="2" fill="#8b5e2d" opacity="0.5" transform="rotate(180 45 45)"/>
+      <circle cx="45" cy="5"  r="2" fill="#8b5e2d" opacity="0.5" transform="rotate(225 45 45)"/>
+      <circle cx="45" cy="5"  r="2" fill="#8b5e2d" opacity="0.5" transform="rotate(270 45 45)"/>
+      <circle cx="45" cy="5"  r="2" fill="#8b5e2d" opacity="0.5" transform="rotate(315 45 45)"/>
+    </svg>
+  </div>
+
+  <!-- Kicker -->
+  <p class="kicker stagger-1">JAGSoM · IFIM College of Management</p>
+
+  <!-- Divider -->
+  <div class="divider stagger-2" style="margin-top:12px;">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-diamond" style="opacity:0.4;width:5px;height:5px;"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- Main title -->
+  <div class="title-block stagger-2">
+    <div class="title-main">FAREWELL</div>
+    <div class="title-sub">A Celebration of Journeys & New Beginnings</div>
+    <div class="batch-tag">PGDM BATCH 2024 – 2026</div>
+  </div>
+
+  <!-- Floral divider -->
+  <div class="floral-row stagger-3">
+    <svg width="220" height="22" viewBox="0 0 220 22" fill="none">
+      <line x1="0" y1="11" x2="80" y2="11" stroke="#8b5e2d" stroke-width="0.8" opacity="0.5"/>
+      <circle cx="88" cy="11" r="3" fill="#8b5e2d" opacity="0.4"/>
+      <path d="M97 11 Q102 6 110 11 Q102 16 97 11Z" fill="#8b5e2d" opacity="0.6"/>
+      <path d="M123 11 Q118 6 110 11 Q118 16 123 11Z" fill="#8b5e2d" opacity="0.6"/>
+      <path d="M110 4 Q115 11 110 18 Q105 11 110 4Z" fill="#8b5e2d" opacity="0.4"/>
+      <circle cx="110" cy="11" r="2.5" fill="#8b5e2d"/>
+      <circle cx="132" cy="11" r="3" fill="#8b5e2d" opacity="0.4"/>
+      <line x1="140" y1="11" x2="220" y2="11" stroke="#8b5e2d" stroke-width="0.8" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <!-- Event details grid -->
+  <div class="details-wrap stagger-3">
+    <div class="detail-cell">
+      <div class="detail-icon">📅</div>
+      <div class="detail-label">Date</div>
+      <div class="detail-value">25th April</div>
+    </div>
+    <div class="detail-cell">
+      <div class="detail-icon">🕡</div>
+      <div class="detail-label">Time</div>
+      <div class="detail-value">6:30 – 8:30 PM</div>
+    </div>
+    <div class="detail-cell" style="grid-column: 1 / -1;">
+      <div class="detail-icon">📍</div>
+      <div class="detail-label">Venue</div>
+      <div class="detail-value">IFIM Hostel Grounds</div>
+    </div>
+  </div>
+
+  <!-- Dress code -->
+  <div class="dresscode-wrap stagger-4">
+    <div class="dresscode-label">✦ Dress Code ✦</div>
+    <div class="dresscode-text">
+      Men: Traditional Attire &nbsp;·&nbsp; Women: Saree
+    </div>
+    <div class="dresscode-icons">🧣 🥻</div>
+  </div>
+
+  <!-- Tagline -->
+  <div class="tagline stagger-4">
+    <div class="divider" style="margin-bottom:18px;">
+      <div class="divider-line"></div>
+      <div class="divider-diamond" style="opacity:0.5;"></div>
+      <div class="divider-line"></div>
+    </div>
+    <p class="tagline-text">
+      "Here's to the nights that turned into mornings,<br>
+      the friends that turned into <em>family</em>,<br>
+      and the dreams that became <em>destinations</em>."
+    </p>
+    <div class="divider" style="margin-top:18px;">
+      <div class="divider-line"></div>
+      <div class="divider-diamond" style="opacity:0.5;"></div>
+      <div class="divider-line"></div>
+    </div>
+  </div>
+
+  <!-- Bottom seal -->
+  <div class="bottom-seal stagger-5">
+    <div class="seal-ring">
+      <div class="seal-inner-text">PGDM<br>24–26</div>
+    </div>
+    <div class="bottom-text">JAGSoM · Bangalore</div>
+  </div>
+
+</div>
+
+<script>
+  // Generate falling petals
+  const container = document.getElementById('petals');
+  const count = 18;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const left = Math.random() * 100;
+    const delay = Math.random() * 12;
+    const duration = 10 + Math.random() * 10;
+    const size = 4 + Math.random() * 5;
+    p.style.cssText = `
+      left: ${left}%;
+      animation-duration: ${duration}s;
+      animation-delay: -${delay}s;
+      width: ${size}px;
+      height: ${size * 1.6}px;
+      background: rgba(${Math.random() > 0.5 ? '180,90,40' : '200,160,80'},${0.1 + Math.random() * 0.2});
+      border-radius: ${50 + Math.random() * 30}% ${30 + Math.random() * 30}% ${50 + Math.random() * 30}% ${30 + Math.random() * 30}%;
+    `;
+    container.appendChild(p);
+  }
+</script>
+</body>
+</html>
