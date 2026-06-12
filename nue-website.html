@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUE — Premium Fashion</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#F5F0E8;--charcoal:#1C1C1C;--stone:#8C7B6B;--gold:#C9A96E;
+  --blush:#E8D5C4;--sage:#9CAF88;--white:#FFFFFF;--border:#E0D8CC;
+  --muted:#6B6057;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--charcoal);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+/* ─── ANNOUNCEMENT BAR ─── */
+.announce{background:var(--charcoal);color:var(--white);height:36px;display:flex;align-items:center;overflow:hidden;position:relative}
+.announce-track{display:flex;animation:marquee 28s linear infinite;white-space:nowrap}
+.announce-track span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:0 48px;color:rgba(255,255,255,.85)}
+.announce-track span em{color:var(--gold);font-style:normal}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── NAVBAR ─── */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+nav.scrolled{border-color:var(--border)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 40px;height:70px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Cinzel',serif;font-size:22px;letter-spacing:.35em;color:var(--charcoal);font-weight:500}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal);font-weight:500;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.nav-links a:hover{color:var(--stone)}
+.nav-icons{display:flex;align-items:center;gap:20px}
+.nav-icons button,.nav-icons a{display:flex;align-items:center;gap:6px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--charcoal);position:relative;transition:color .2s}
+.nav-icons button:hover,.nav-icons a:hover{color:var(--gold)}
+.cart-badge{background:var(--charcoal);color:var(--white);width:16px;height:16px;border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;position:absolute;top:-6px;right:-6px}
+svg.icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ─── HERO ─── */
+.hero{height:100vh;min-height:640px;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero-left{background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:80px 70px;position:relative;overflow:hidden}
+.hero-left::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.12) 0%,transparent 70%)}
+.hero-eyebrow{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,6vw,88px);font-weight:300;line-height:1.05;color:var(--charcoal);margin-bottom:24px}
+.hero-title em{font-style:italic;color:var(--stone)}
+.hero-desc{font-size:14px;line-height:1.8;color:var(--muted);max-width:380px;margin-bottom:40px;font-weight:300}
+.hero-actions{display:flex;align-items:center;gap:24px}
+.btn-primary{background:var(--charcoal);color:var(--white);padding:14px 36px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;transition:background .25s,transform .2s}
+.btn-primary:hover{background:var(--stone);transform:translateY(-1px)}
+.btn-ghost{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--charcoal);border-bottom:1px solid var(--charcoal);padding-bottom:2px;transition:color .2s,border-color .2s}
+.btn-ghost:hover{color:var(--gold);border-color:var(--gold)}
+.hero-right{position:relative;overflow:hidden}
+.hero-right img{width:100%;height:100%;object-fit:cover;transition:transform 8s ease}
+.hero-right:hover img{transform:scale(1.04)}
+.hero-badge{position:absolute;bottom:48px;left:48px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);padding:16px 22px;border-left:2px solid var(--gold)}
+.hero-badge-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--stone);margin-bottom:4px}
+.hero-badge-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500}
+.hero-scroll{position:absolute;bottom:32px;left:70px;display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.hero-scroll::before{content:'';width:40px;height:1px;background:var(--stone)}
+
+/* ─── MARQUEE STRIP ─── */
+.strip{background:var(--charcoal);padding:14px 0;overflow:hidden}
+.strip-track{display:flex;animation:marquee 20s linear infinite}
+.strip-item{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.5);padding:0 32px;white-space:nowrap;display:flex;align-items:center;gap:32px}
+.strip-item span{color:var(--gold)}
+
+/* ─── SECTION COMMON ─── */
+.section{padding:100px 0}
+.section-inner{max-width:1400px;margin:0 auto;padding:0 40px}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px}
+.section-eyebrow{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,48px);font-weight:300;line-height:1.15}
+.section-link{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--charcoal);display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--charcoal);padding-bottom:2px;transition:color .2s,border-color .2s}
+.section-link:hover{color:var(--gold);border-color:var(--gold)}
+.section-link svg{width:14px;height:14px}
+
+/* ─── COLLECTIONS ─── */
+.collections-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:12px}
+.col-card{position:relative;overflow:hidden;cursor:pointer}
+.col-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.col-card:hover img{transform:scale(1.06)}
+.col-card:first-child{grid-row:1/3;height:620px}
+.col-card:not(:first-child){height:304px}
+.col-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 50%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+.col-cat{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:6px}
+.col-name{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);font-weight:400}
+.col-count{font-size:10px;color:rgba(255,255,255,.6);margin-top:4px;letter-spacing:.05em}
+
+/* ─── PRODUCT CARD ─── */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.product-card{cursor:pointer}
+.product-img-wrap{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--cream);margin-bottom:16px}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,opacity .3s}
+.product-img-wrap .img-alt{position:absolute;inset:0;object-fit:cover;opacity:0;transition:opacity .4s}
+.product-card:hover .img-alt{opacity:1}
+.product-card:hover .product-img-wrap img:first-child{transform:scale(1.04)}
+.product-badges{position:absolute;top:14px;left:14px;display:flex;flex-direction:column;gap:6px}
+.badge{font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;font-weight:500}
+.badge-new{background:var(--charcoal);color:var(--white)}
+.badge-sale{background:var(--gold);color:var(--white)}
+.badge-trending{background:var(--sage);color:var(--white)}
+.product-wish{position:absolute;top:14px;right:14px;width:34px;height:34px;background:rgba(255,255,255,.88);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;opacity:0}
+.product-card:hover .product-wish{opacity:1}
+.product-wish:hover{background:var(--white);transform:scale(1.1)}
+.product-wish svg{width:15px;height:15px}
+.quick-add{position:absolute;bottom:0;left:0;right:0;background:rgba(28,28,28,.9);color:var(--white);padding:12px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;text-align:center;transform:translateY(100%);transition:transform .3s;font-weight:500}
+.product-card:hover .quick-add{transform:translateY(0)}
+.product-cat{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);margin-bottom:6px}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:8px;line-height:1.3}
+.product-pricing{display:flex;align-items:center;gap:10px}
+.product-price{font-size:14px;font-weight:500;color:var(--charcoal)}
+.product-compare{font-size:13px;color:var(--stone);text-decoration:line-through}
+.product-off{font-size:11px;color:#c0392b;font-weight:500}
+
+/* ─── EDITORIAL BANNER ─── */
+.editorial{display:grid;grid-template-columns:1fr 1fr;min-height:580px}
+.editorial-img{position:relative;overflow:hidden}
+.editorial-img img{width:100%;height:100%;object-fit:cover}
+.editorial-content{background:var(--charcoal);display:flex;flex-direction:column;justify-content:center;padding:80px 72px}
+.editorial-eyebrow{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.editorial-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4vw,60px);font-weight:300;color:var(--white);line-height:1.1;margin-bottom:20px}
+.editorial-title em{font-style:italic;color:rgba(255,255,255,.6)}
+.editorial-body{font-size:14px;line-height:1.85;color:rgba(255,255,255,.55);margin-bottom:40px;font-weight:300}
+.editorial-stat-row{display:flex;gap:48px;margin-bottom:40px}
+.editorial-stat-num{font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--white);font-weight:300}
+.editorial-stat-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px}
+
+/* ─── NEW ARRIVALS SCROLL ─── */
+.arrivals-wrap{overflow:hidden}
+.arrivals-track{display:flex;gap:20px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.arrivals-track::-webkit-scrollbar{display:none}
+.arrival-card{flex:0 0 280px;cursor:pointer}
+.arrival-img{aspect-ratio:3/4;overflow:hidden;margin-bottom:14px;background:var(--cream)}
+.arrival-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.arrival-card:hover .arrival-img img{transform:scale(1.05)}
+.arrival-name{font-family:'Cormorant Garamond',serif;font-size:17px;margin-bottom:6px}
+.arrival-price{font-size:13px;color:var(--stone)}
+
+/* ─── TESTIMONIALS ─── */
+.testimonials-bg{background:var(--cream)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.testi-card{background:var(--white);padding:40px;position:relative}
+.testi-card::before{content:'\201C';font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--gold);position:absolute;top:20px;left:32px;line-height:1;opacity:.5}
+.testi-stars{display:flex;gap:3px;margin-bottom:20px}
+.star{width:13px;height:13px;fill:var(--gold);color:var(--gold)}
+.testi-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;line-height:1.7;color:var(--charcoal);margin-bottom:24px}
+.testi-author{display:flex;align-items:center;gap:14px}
+.testi-avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--blush)}
+.testi-name{font-size:13px;font-weight:500;color:var(--charcoal)}
+.testi-sub{font-size:11px;color:var(--stone);margin-top:2px}
+.testi-badge{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);background:rgba(201,169,110,.1);padding:3px 8px;margin-top:4px;display:inline-block}
+
+/* ─── INSTAGRAM ─── */
+.insta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.insta-cell{aspect-ratio:1;overflow:hidden;position:relative;cursor:pointer}
+.insta-cell img{width:100%;height:100%;object-fit:cover;transition:transform .5s,filter .3s}
+.insta-cell:hover img{transform:scale(1.06);filter:brightness(.8)}
+.insta-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;background:rgba(28,28,28,.2)}
+.insta-cell:hover .insta-overlay{opacity:1}
+.insta-icon svg{width:28px;height:28px;stroke:var(--white);fill:none}
+.insta-header{text-align:center;margin-bottom:40px}
+.insta-handle{font-family:'Cormorant Garamond',serif;font-size:28px;font-style:italic;color:var(--charcoal)}
+.insta-sub{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);margin-top:6px}
+
+/* ─── NEWSLETTER ─── */
+.newsletter{background:var(--charcoal);padding:100px 0}
+.newsletter-inner{max-width:640px;margin:0 auto;text-align:center;padding:0 40px}
+.newsletter-eyebrow{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.newsletter-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,52px);font-weight:300;color:var(--white);margin-bottom:14px;line-height:1.15}
+.newsletter-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:36px;line-height:1.7;font-weight:300}
+.newsletter-form{display:flex;gap:0;max-width:480px;margin:0 auto 16px}
+.newsletter-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-right:none;padding:14px 20px;color:var(--white);font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
+.newsletter-input::placeholder{color:rgba(255,255,255,.3)}
+.newsletter-input:focus{border-color:rgba(201,169,110,.5)}
+.newsletter-btn{background:var(--gold);color:var(--white);padding:14px 28px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;white-space:nowrap;transition:background .2s}
+.newsletter-btn:hover{background:#b8966a}
+.newsletter-disclaimer{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.05em}
+
+/* ─── FOOTER ─── */
+footer{background:#111;color:rgba(255,255,255,.6);padding:72px 0 32px}
+.footer-inner{max-width:1400px;margin:0 auto;padding:0 40px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:64px}
+.footer-brand-logo{font-family:'Cinzel',serif;font-size:24px;letter-spacing:.35em;color:var(--white);margin-bottom:16px}
+.footer-tagline{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:rgba(255,255,255,.4);margin-bottom:20px;line-height:1.6}
+.footer-social{display:flex;gap:14px;margin-top:24px}
+.social-btn{width:36px;height:36px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s}
+.social-btn:hover{border-color:var(--gold);background:rgba(201,169,110,.1)}
+.social-btn svg{width:15px;height:15px;stroke:rgba(255,255,255,.5);fill:none}
+.footer-col-title{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--white);margin-bottom:20px;font-weight:500}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:11px}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.45);transition:color .2s;font-weight:300}
+.footer-links a:hover{color:var(--gold)}
+.footer-divider{border:none;border-top:1px solid rgba(255,255,255,.06);margin-bottom:28px}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:11px}
+.footer-copy{color:rgba(255,255,255,.25)}
+.footer-legal{display:flex;gap:24px}
+.footer-legal a{color:rgba(255,255,255,.25);transition:color .2s;font-size:11px}
+.footer-legal a:hover{color:rgba(255,255,255,.5)}
+
+/* ─── FEATURES STRIP ─── */
+.features-strip{padding:56px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:1400px;margin:0 auto;padding:0 40px}
+.feature-item{display:flex;align-items:flex-start;gap:18px;padding:0 32px;border-right:1px solid var(--border)}
+.feature-item:first-child{padding-left:0}
+.feature-item:last-child{border-right:none}
+.feature-icon{width:36px;height:36px;flex-shrink:0;color:var(--gold)}
+.feature-title{font-size:13px;font-weight:600;margin-bottom:4px;color:var(--charcoal)}
+.feature-desc{font-size:12px;color:var(--stone);line-height:1.6;font-weight:300}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){
+  .products-grid{grid-template-columns:repeat(3,1fr)}
+  .collections-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .col-card:first-child{grid-column:1/3;height:420px;grid-row:auto}
+  .col-card:not(:first-child){height:280px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:40px}
+  .features-grid{grid-template-columns:repeat(2,1fr);gap:32px}
+  .feature-item{border-right:none}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr;height:auto}
+  .hero-left{padding:60px 24px;min-height:60vh}
+  .hero-right{height:50vw}
+  .hero-scroll{display:none}
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+  .testi-grid{grid-template-columns:1fr}
+  .insta-grid{grid-template-columns:repeat(3,1fr)}
+  .editorial{grid-template-columns:1fr}
+  .editorial-img{height:320px}
+  .editorial-content{padding:48px 28px}
+  .section-inner{padding:0 20px}
+  .nav-inner{padding:0 20px}
+  .footer-inner{padding:0 20px}
+  .footer-top{grid-template-columns:1fr}
+  .section{padding:64px 0}
+  .features-grid{grid-template-columns:1fr;padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce">
+  <div class="announce-track">
+    <span>Complimentary shipping on orders above <em>₹999</em></span>
+    <span>Use code <em>WELCOME10</em> for 10% off your first order</span>
+    <span>New season arrivals — <em>Shop Now</em></span>
+    <span>Free returns within <em>30 days</em></span>
+    <span>Complimentary shipping on orders above <em>₹999</em></span>
+    <span>Use code <em>WELCOME10</em> for 10% off your first order</span>
+    <span>New season arrivals — <em>Shop Now</em></span>
+    <span>Free returns within <em>30 days</em></span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">NUE</a>
+    <div class="nav-links">
+      <a href="#">Shop</a>
+      <a href="#">Collections</a>
+      <a href="#">New Arrivals</a>
+      <a href="#">Editorial</a>
+      <a href="#">Sale</a>
+    </div>
+    <div class="nav-icons">
+      <button title="Search">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <a href="#" title="Wishlist" style="position:relative">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="cart-badge">2</span>
+      </a>
+      <a href="#" title="Cart" style="position:relative">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" style="background:var(--gold)">3</span>
+      </a>
+      <a href="#" title="Account">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">New Season — SS 2025</p>
+    <h1 class="hero-title">Wear<br>Your <em>Story</em></h1>
+    <p class="hero-desc">Crafted for the intentional woman. Each piece a quiet declaration of who you are — minimal, purposeful, and effortlessly refined.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Explore Collection</a>
+      <a href="#" class="btn-ghost">View Lookbook</a>
+    </div>
+    <div class="hero-scroll">Scroll to discover</div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85" alt="Hero fashion">
+    <div class="hero-badge">
+      <div class="hero-badge-label">New Arrivals</div>
+      <div class="hero-badge-val">SS '25 Edit</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="strip">
+  <div class="strip-track">
+    <div class="strip-item">Mindful Craftsmanship <span>✦</span> Sustainable Fabrics <span>✦</span> Timeless Design <span>✦</span> Slow Fashion <span>✦</span> Made to Last <span>✦</span> Premium Textiles <span>✦</span> Ethical Production <span>✦</span></div>
+    <div class="strip-item">Mindful Craftsmanship <span>✦</span> Sustainable Fabrics <span>✦</span> Timeless Design <span>✦</span> Slow Fashion <span>✦</span> Made to Last <span>✦</span> Premium Textiles <span>✦</span> Ethical Production <span>✦</span></div>
+  </div>
+</div>
+
+<!-- COLLECTIONS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <p class="section-eyebrow">Browse by Category</p>
+        <h2 class="section-title">Shop by Collection</h2>
+      </div>
+      <a href="#" class="section-link">View All Collections <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+    </div>
+    <div class="collections-grid">
+      <div class="col-card">
+        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=80" alt="Women">
+        <div class="col-overlay">
+          <div class="col-cat">Category</div>
+          <div class="col-name">Women</div>
+          <div class="col-count">124 pieces</div>
+        </div>
+      </div>
+      <div class="col-card">
+        <img src="https://images.unsplash.com/photo-1516826957135-700dedea698c?w=600&q=80" alt="Men">
+        <div class="col-overlay">
+          <div class="col-cat">Category</div>
+          <div class="col-name">Men</div>
+          <div class="col-count">86 pieces</div>
+        </div>
+      </div>
+      <div class="col-card">
+        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="Accessories">
+        <div class="col-overlay">
+          <div class="col-cat">Category</div>
+          <div class="col-name">Accessories</div>
+          <div class="col-count">52 pieces</div>
+        </div>
+      </div>
+      <div class="col-card">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Dresses">
+        <div class="col-overlay">
+          <div class="col-cat">Women</div>
+          <div class="col-name">Dresses</div>
+          <div class="col-count">38 pieces</div>
+        </div>
+      </div>
+      <div class="col-card">
+        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&q=80" alt="Essentials">
+        <div class="col-overlay">
+          <div class="col-cat">New</div>
+          <div class="col-name">Essentials</div>
+          <div class="col-count">44 pieces</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <p class="section-eyebrow">Hand-Picked</p>
+        <h2 class="section-title">Featured Products</h2>
+      </div>
+      <a href="#" class="section-link">Shop All <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+    </div>
+    <div class="products-grid">
+      <!-- Card 1 -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80" alt="Linen Slip Dress">
+          <img class="img-alt" src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&q=80" alt="alt">
+          <div class="product-badges"><span class="badge badge-new">New</span></div>
+          <button class="product-wish"><svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <div class="product-cat">Women / Dresses</div>
+        <div class="product-name">Linen Slip Dress</div>
+        <div class="product-pricing">
+          <span class="product-price">₹3,499</span>
+          <span class="product-compare">₹4,500</span>
+          <span class="product-off">22% off</span>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=600&q=80" alt="Oversized Blazer">
+          <img class="img-alt" src="https://images.unsplash.com/photo-1548372290-8d01b6c8e78c?w=600&q=80" alt="alt">
+          <div class="product-badges"><span class="badge badge-trending">Trending</span></div>
+          <button class="product-wish"><svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <div class="product-cat">Women / Outerwear</div>
+        <div class="product-name">Oversized Structured Blazer</div>
+        <div class="product-pricing"><span class="product-price">₹5,999</span></div>
+      </div>
+      <!-- Card 3 -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&q=80" alt="Cashmere Sweater">
+          <img class="img-alt" src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80" alt="alt">
+          <div class="product-badges"><span class="badge badge-sale">Sale</span></div>
+          <button class="product-wish"><svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <div class="product-cat">Women / Tops</div>
+        <div class="product-name">Cashmere Blend Sweater</div>
+        <div class="product-pricing">
+          <span class="product-price">₹6,999</span>
+          <span class="product-compare">₹8,500</span>
+          <span class="product-off">18% off</span>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600&q=80" alt="Cotton Shirt">
+          <img class="img-alt" src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&q=80" alt="alt">
+          <button class="product-wish"><svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <div class="product-cat">Men / Shirts</div>
+        <div class="product-name">Premium Cotton Shirt</div>
+        <div class="product-pricing"><span class="product-price">₹2,499</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL BANNER -->
+<div class="editorial">
+  <div class="editorial-img">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85" alt="Editorial">
+  </div>
+  <div class="editorial-content">
+    <p class="editorial-eyebrow">The NUE Philosophy</p>
+    <h2 class="editorial-title">Dressed in<br><em>Intention</em></h2>
+    <p class="editorial-body">We believe fashion should feel like a second skin — not a performance. Each NUE piece is created with care, using materials sourced from sustainable mills, designed to outlast every trend.</p>
+    <div class="editorial-stat-row">
+      <div>
+        <div class="editorial-stat-num">100%</div>
+        <div class="editorial-stat-label">Natural Fibres</div>
+      </div>
+      <div>
+        <div class="editorial-stat-num">12K+</div>
+        <div class="editorial-stat-label">Happy Customers</div>
+      </div>
+      <div>
+        <div class="editorial-stat-num">5★</div>
+        <div class="editorial-stat-label">Avg. Rating</div>
+      </div>
+    </div>
+    <a href="#" class="btn-primary">Read Our Story</a>
+  </div>
+</div>
+
+<!-- FEATURES STRIP -->
+<div class="features-strip">
+  <div class="features-grid">
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <div>
+        <div class="feature-title">Free Shipping</div>
+        <div class="feature-desc">On all orders above ₹999. Express delivery available.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+      <div>
+        <div class="feature-title">Easy Returns</div>
+        <div class="feature-desc">30-day hassle-free return policy on all purchases.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <div>
+        <div class="feature-title">Secure Payments</div>
+        <div class="feature-desc">256-bit SSL encryption. Pay with any card or UPI.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.37 2 2 0 0 1 3.58 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <div>
+        <div class="feature-title">24/7 Support</div>
+        <div class="feature-desc">Real humans, real help. Reach us anytime via chat or email.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW ARRIVALS -->
+<section class="section" style="background:var(--cream)">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <p class="section-eyebrow">Just Landed</p>
+        <h2 class="section-title">New Arrivals</h2>
+      </div>
+      <a href="#" class="section-link">Shop New In <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+    </div>
+    <div class="arrivals-wrap">
+      <div class="arrivals-track">
+        <div class="arrival-card">
+          <div class="arrival-img"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&q=80" alt="Wide Leg Trousers"></div>
+          <div class="product-cat">Women / Bottoms</div>
+          <div class="arrival-name">Wide Leg Linen Trousers</div>
+          <div class="arrival-price">₹3,999</div>
+        </div>
+        <div class="arrival-card">
+          <div class="arrival-img"><img src="https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=500&q=80" alt="Silk Scarf"></div>
+          <div class="product-cat">Accessories / Scarves</div>
+          <div class="arrival-name">Silk Blend Printed Scarf</div>
+          <div class="arrival-price">₹1,499</div>
+        </div>
+        <div class="arrival-card">
+          <div class="arrival-img"><img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&q=80" alt="Men Linen Trousers"></div>
+          <div class="product-cat">Men / Trousers</div>
+          <div class="arrival-name">Relaxed Linen Trousers</div>
+          <div class="arrival-price">₹2,999</div>
+        </div>
+        <div class="arrival-card">
+          <div class="arrival-img"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80" alt="White Tee"></div>
+          <div class="product-cat">Men / T-Shirts</div>
+          <div class="arrival-name">Classic Crew Neck Tee</div>
+          <div class="arrival-price">₹999</div>
+        </div>
+        <div class="arrival-card">
+          <div class="arrival-img"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&q=80" alt="Tote Bag"></div>
+          <div class="product-cat">Accessories / Bags</div>
+          <div class="arrival-name">Structured Canvas Tote</div>
+          <div class="arrival-price">₹2,999</div>
+        </div>
+        <div class="arrival-card">
+          <div class="arrival-img"><img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&q=80" alt="Knit Cardigan"></div>
+          <div class="product-cat">Women / Tops</div>
+          <div class="arrival-name">Open-Knit Cardigan</div>
+          <div class="arrival-price">₹4,499</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <p class="section-eyebrow">Customer Favourites</p>
+        <h2 class="section-title">Best Sellers</h2>
+      </div>
+      <a href="#" class="section-link">View All <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&q=80" alt="Wrap Dress">
+          <img class="img-alt" src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80" alt="alt">
+          <div class="product-badges"><span class="badge badge-sale">Best Seller</span></div>
+          <button class="product-wish"><svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <div class="product-cat">Women / Dresses</div>
+        <div class="product-name">Wrap Midi Dress</div>
+        <div class="product-pricing"><span class="product-price">₹4,499</span><span class="product-compare">₹5,500</span><span class="product-off">18% off</span></div>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Maxi Skirt">
+          <img class="img-alt" src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80" alt="alt">
+          <div class="product-badges"><span class="badge badge-sale">Best Seller</span></div>
+          <button class="product-wish"><svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <div class="product-cat">Women / Bottoms</div>
+        <div class="product-name">Fluid Satin Skirt</div>
+        <div class="product-pricing"><span class="product-price">₹3,299</span></div>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1548372290-8d01b6c8e78c?w=600&q=80" alt="Trench">
+          <img class="img-alt" src="https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=600&q=80" alt="alt">
+          <div class="product-badges"><span class="badge badge-trending">Trending</span></div>
+          <button class="product-wish"><svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <div class="product-cat">Women / Outerwear</div>
+        <div class="product-name">Classic Trench Coat</div>
+        <div class="product-pricing"><span class="product-price">₹8,999</span><span class="product-compare">₹11,000</span><span class="product-off">18% off</span></div>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&q=80" alt="Linen Shirt">
+          <img class="img-alt" src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600&q=80" alt="alt">
+          <button class="product-wish"><svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <div class="product-cat">Men / Shirts</div>
+        <div class="product-name">Linen Resort Shirt</div>
+        <div class="product-pricing"><span class="product-price">₹2,799</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials-bg">
+  <div class="section-inner">
+    <div class="section-header" style="justify-content:center;flex-direction:column;text-align:center;gap:12px">
+      <p class="section-eyebrow">What Our Customers Say</p>
+      <h2 class="section-title">Loved by Thousands</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        </div>
+        <p class="testi-text">"The linen slip dress is everything I wanted. The fabric is genuinely luxurious — light, breathable, and it drapes beautifully. I've received so many compliments already."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#E8D5C4,#C9A96E);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-size:16px;color:#fff">P</div>
+          <div>
+            <div class="testi-name">Priya Sharma</div>
+            <div class="testi-sub">Bangalore</div>
+            <div class="testi-badge">Verified Purchase</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        </div>
+        <p class="testi-text">"Ordered the oversized blazer and it arrived in two days. The quality is outstanding — tailoring is precise and the fabric has real weight. NUE has become my go-to brand."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#9CAF88,#5a7a50);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-size:16px;color:#fff">A</div>
+          <div>
+            <div class="testi-name">Aisha Menon</div>
+            <div class="testi-sub">Mumbai</div>
+            <div class="testi-badge">Verified Purchase</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        </div>
+        <p class="testi-text">"Finally a brand that understands sustainable fashion without sacrificing style. The cashmere sweater is divine — it's going to be my forever piece. Will definitely buy more."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#c4b5a0,#8C7B6B);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-size:16px;color:#fff">R</div>
+          <div>
+            <div class="testi-name">Rohan Kapoor</div>
+            <div class="testi-sub">Delhi</div>
+            <div class="testi-badge">Verified Purchase</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="section" style="padding-bottom:80px">
+  <div class="section-inner">
+    <div class="insta-header">
+      <p class="section-eyebrow" style="text-align:center">Follow Along</p>
+      <div class="insta-handle">@nueclothing</div>
+      <div class="insta-sub">Share your NUE look · #DressedInIntention</div>
+    </div>
+    <div class="insta-grid">
+      <div class="insta-cell"><img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80" alt="insta"><div class="insta-overlay"><div class="insta-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div></div>
+      <div class="insta-cell"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80" alt="insta"><div class="insta-overlay"><div class="insta-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div></div>
+      <div class="insta-cell"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="insta"><div class="insta-overlay"><div class="insta-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div></div>
+      <div class="insta-cell"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=80" alt="insta"><div class="insta-overlay"><div class="insta-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div></div>
+      <div class="insta-cell"><img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&q=80" alt="insta"><div class="insta-overlay"><div class="insta-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div></div>
+      <div class="insta-cell"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80" alt="insta"><div class="insta-overlay"><div class="insta-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <p class="newsletter-eyebrow">Join the Circle</p>
+    <h2 class="newsletter-title">Be the First to Know</h2>
+    <p class="newsletter-sub">Subscribe for early access to new arrivals, exclusive offers, and styling notes from our editorial team.</p>
+    <div class="newsletter-form">
+      <input class="newsletter-input" type="email" placeholder="Your email address">
+      <button class="newsletter-btn">Subscribe</button>
+    </div>
+    <p class="newsletter-disclaimer">By subscribing you agree to our Privacy Policy. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-logo">NUE</div>
+        <p class="footer-tagline">"Dressed in intention.<br>Made to last."</p>
+        <p style="font-size:12px;color:rgba(255,255,255,.3);line-height:1.7;max-width:280px;font-weight:300">Premium sustainable fashion, thoughtfully crafted for the modern wardrobe. Based in Bangalore, shipping across India.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn" title="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="Pinterest">
+            <svg viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 4-4"/><path d="M12 8v8"/><path d="M12 12c0 2.5 2 4 4 4"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="Twitter">
+            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Shop</div>
+        <ul class="footer-links">
+          <li><a href="#">Women</a></li>
+          <li><a href="#">Men</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Sale</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About NUE</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Affiliates</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Support</div>
+        <ul class="footer-links">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns & Exchanges</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Care Guide</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+        <div style="margin-top:28px">
+          <div class="footer-col-title">Contact</div>
+          <p style="font-size:12px;color:rgba(255,255,255,.35);line-height:1.8;font-weight:300">hello@nueclothing.com<br>Mon–Sat, 10am–6pm IST</p>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 NUE. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Returns Policy</a>
+        <a href="#">Cookie Settings</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll shadow
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+});
+</script>
+</body>
+</html>
