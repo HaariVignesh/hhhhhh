@@ -1,0 +1,304 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 245 240 232; /* nue-cream #F5F0E8 */
+    --foreground: 44 44 44;    /* nue-charcoal #2C2C2C */
+
+    --card: 250 247 242;
+    --card-foreground: 44 44 44;
+
+    --popover: 255 255 255;
+    --popover-foreground: 44 44 44;
+
+    --primary: 44 44 44;       /* nue-charcoal */
+    --primary-foreground: 255 255 255;
+
+    --secondary: 245 240 232;  /* nue-cream */
+    --secondary-foreground: 44 44 44;
+
+    --muted: 232 213 196;      /* nue-blush */
+    --muted-foreground: 140 123 107; /* nue-stone */
+
+    --accent: 201 169 110;     /* nue-gold */
+    --accent-foreground: 44 44 44;
+
+    --destructive: 220 38 38;
+    --destructive-foreground: 255 255 255;
+
+    --border: 220 213 204;
+    --input: 220 213 204;
+    --ring: 201 169 110;       /* nue-gold for focus rings */
+
+    --radius: 0.25rem;
+  }
+
+  .dark {
+    --background: 22 22 22;
+    --foreground: 245 240 232;
+
+    --card: 32 32 32;
+    --card-foreground: 245 240 232;
+
+    --popover: 28 28 28;
+    --popover-foreground: 245 240 232;
+
+    --primary: 245 240 232;    /* cream becomes primary in dark */
+    --primary-foreground: 44 44 44;
+
+    --secondary: 44 44 44;
+    --secondary-foreground: 245 240 232;
+
+    --muted: 52 46 40;
+    --muted-foreground: 160 146 133;
+
+    --accent: 201 169 110;     /* nue-gold stays */
+    --accent-foreground: 22 22 22;
+
+    --destructive: 185 28 28;
+    --destructive-foreground: 255 255 255;
+
+    --border: 52 46 40;
+    --input: 52 46 40;
+    --ring: 201 169 110;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar — thin, stone colour */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(140 123 107 / 0.5); /* nue-stone 50 % */
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(140 123 107 / 0.8);
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(140 123 107 / 0.5) rgb(var(--background));
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgb(201 169 110 / 0.25); /* nue-gold tint */
+    color: rgb(var(--foreground));
+  }
+
+  /* Focus visible */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Smooth image rendering */
+  img {
+    @apply max-w-full;
+    image-rendering: -webkit-optimize-contrast;
+  }
+
+  /* Headings default to serif */
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+  }
+
+  /* Links */
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  /* ------------------------------------------------------------------ */
+  /* Luxury button system                                                  */
+  /* ------------------------------------------------------------------ */
+  .btn-luxury {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-3 text-sm tracking-[0.15em] uppercase font-sans font-medium transition-all duration-300 select-none;
+  }
+
+  .btn-luxury-primary {
+    @apply btn-luxury bg-[#2C2C2C] text-white hover:bg-[#1a1a1a] active:scale-[0.98];
+  }
+
+  .btn-luxury-outline {
+    @apply btn-luxury border border-[#2C2C2C] text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-white active:scale-[0.98];
+  }
+
+  .btn-luxury-gold {
+    @apply btn-luxury bg-[#C9A96E] text-white hover:bg-[#b8944f] active:scale-[0.98];
+  }
+
+  .btn-luxury-ghost {
+    @apply btn-luxury text-[#2C2C2C] hover:text-[#C9A96E] active:scale-[0.98];
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Nav link with animated underline                                      */
+  /* ------------------------------------------------------------------ */
+  .nav-link {
+    @apply relative text-sm tracking-[0.08em] uppercase text-foreground/80 hover:text-foreground transition-colors duration-200;
+  }
+
+  .nav-link::after {
+    content: "";
+    @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Product card                                                          */
+  /* ------------------------------------------------------------------ */
+  .product-card {
+    @apply relative overflow-hidden group cursor-pointer;
+  }
+
+  .product-card-image {
+    @apply transition-transform duration-700 ease-out group-hover:scale-105;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Typography / labels                                                   */
+  /* ------------------------------------------------------------------ */
+  .section-label {
+    @apply text-xs tracking-[0.25em] uppercase text-[#8C7B6B] font-sans mb-2;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Dividers                                                              */
+  /* ------------------------------------------------------------------ */
+  .luxury-divider {
+    @apply flex items-center gap-4 my-8;
+  }
+
+  .luxury-divider::before,
+  .luxury-divider::after {
+    content: "";
+    @apply flex-1 h-px bg-border;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Inputs                                                                */
+  /* ------------------------------------------------------------------ */
+  .input-luxury {
+    @apply w-full bg-transparent border-0 border-b border-border pb-2 text-sm focus:outline-none focus:border-foreground transition-colors duration-200 placeholder:text-muted-foreground;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Badges / pills                                                        */
+  /* ------------------------------------------------------------------ */
+  .badge-luxury {
+    @apply inline-flex items-center px-3 py-1 text-xs tracking-[0.12em] uppercase bg-[#F5F0E8] border border-border text-[#8C7B6B] rounded-none;
+  }
+}
+
+@layer utilities {
+  /* Font helpers */
+  .font-cormorant {
+    font-family: var(--font-cormorant), Georgia, serif;
+  }
+
+  /* Tracking */
+  .tracking-luxury {
+    letter-spacing: 0.3em;
+  }
+
+  /* Aspect ratios */
+  .aspect-product {
+    aspect-ratio: 3 / 4;
+  }
+
+  /* Text shadow */
+  .text-shadow-sm {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Gradient overlays */
+  .overlay-gradient-bottom {
+    background: linear-gradient(to top, rgba(44, 44, 44, 0.6) 0%, transparent 60%);
+  }
+
+  .overlay-gradient-top {
+    background: linear-gradient(to bottom, rgba(44, 44, 44, 0.4) 0%, transparent 50%);
+  }
+
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Gold shimmer */
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      #C9A96E 0%,
+      #E8D5C4 40%,
+      #C9A96E 60%,
+      #C9A96E 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Fade in */
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+  }
+
+  /* Slide down */
+  @keyframes slide-down {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}

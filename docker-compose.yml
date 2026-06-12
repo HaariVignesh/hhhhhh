@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: nue_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-nue}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nuepassword123}
+      POSTGRES_DB: ${POSTGRES_DB:-nue_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nue"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nue_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env.local
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-nue}:${POSTGRES_PASSWORD:-nuepassword123}@postgres:5432/${POSTGRES_DB:-nue_db}
+
+volumes:
+  postgres_data:
