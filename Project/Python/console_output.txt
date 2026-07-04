@@ -1,0 +1,231 @@
+
+==============================================================================
+1. LOAD DATA
+==============================================================================
+Loaded 300 rows x 11 columns from data/freshmart_store_sales.csv
+  Store_ID    Month  ... Stockout_Rate_pct  Monthly_Sales_K
+0   FM1000  2024-06  ...               8.1           1286.0
+1   FM1001  2024-07  ...               3.7           1530.8
+2   FM1002  2024-07  ...              16.0            808.1
+3   FM1003  2024-07  ...               8.3           1609.8
+4   FM1004  2024-01  ...              10.8           1715.6
+
+[5 rows x 11 columns]
+
+Column dtypes:
+Store_ID                  str
+Month                     str
+Location_Type             str
+Is_Festival_Month       int64
+Parking_Available       int64
+Digital_Ad_Spend_K    float64
+TV_Ad_Spend_K         float64
+Radio_Ad_Spend_K      float64
+Print_Ad_Spend_K      float64
+Stockout_Rate_pct     float64
+Monthly_Sales_K       float64
+dtype: object
+
+==============================================================================
+2. DATA CLEANING — MISSING VALUES & DUPLICATES
+==============================================================================
+No missing values found.
+
+Duplicate rows (ignoring ID/Month): 0
+
+==============================================================================
+3. SUMMARY STATISTICS
+==============================================================================
+                    count unique      top  ...      50%     75%     max
+Store_ID              300    300   FM1000  ...      NaN     NaN     NaN
+Month                 300     12  2024-12  ...      NaN     NaN     NaN
+Location_Type         300      3    Urban  ...      NaN     NaN     NaN
+Is_Festival_Month   300.0    NaN      NaN  ...      0.0     0.0     1.0
+Parking_Available   300.0    NaN      NaN  ...      1.0     1.0     1.0
+Digital_Ad_Spend_K  300.0    NaN      NaN  ...    38.15    46.7    74.8
+TV_Ad_Spend_K       300.0    NaN      NaN  ...     32.9    40.7    66.2
+Radio_Ad_Spend_K    300.0    NaN      NaN  ...    12.95  16.425    26.2
+Print_Ad_Spend_K    300.0    NaN      NaN  ...      9.4    12.7    20.4
+Stockout_Rate_pct   300.0    NaN      NaN  ...     9.95  14.025    17.9
+Monthly_Sales_K     300.0    NaN      NaN  ...  1417.55  1776.9  2353.8
+
+[11 rows x 11 columns]
+
+==============================================================================
+3a. OUTLIER SCAN (IQR RULE, REPORT-ONLY)
+==============================================================================
+  Digital_Ad_Spend_K: 1 potential outlier(s) outside [4.2, 72.2]
+  TV_Ad_Spend_K: 1 potential outlier(s) outside [0.6, 64.7]
+Decision: outliers are retained — OLS regression is run on the full sample and residual diagnostics (Section 7) are used to check whether any single store is unduly influential, rather than deleting rows ad hoc.
+
+==============================================================================
+4. EXPLORATORY DATA ANALYSIS
+==============================================================================
+Saved 4 scatter plots -> outputs/figures/01_scatter_drivers_vs_sales.png
+  Digital_Ad_Spend_K: r = 0.78 -> strong positive relationship with sales.
+  Stockout_Rate_pct: r = -0.20 -> weak negative relationship with sales.
+  TV_Ad_Spend_K: r = 0.80 -> strong positive relationship with sales.
+  Radio_Ad_Spend_K: r = 0.69 -> strong positive relationship with sales.
+Saved correlation heatmap -> outputs/figures/02_correlation_heatmap.png
+Saved location/festival comparison -> outputs/figures/03_location_and_festival.png
+
+==============================================================================
+5. DATA PREPARATION
+==============================================================================
+Features used (9): ['Is_Festival_Month', 'Parking_Available', 'Digital_Ad_Spend_K', 'TV_Ad_Spend_K', 'Radio_Ad_Spend_K', 'Print_Ad_Spend_K', 'Stockout_Rate_pct', 'Location_Type_Suburban', 'Location_Type_Urban']
+Excluded from modelling: Store_ID, Month (identifiers, no predictive content).
+Train/test split: 225 train rows / 75 test rows (75/25, random_state=42).
+No feature scaling applied: plain multiple linear regression coefficients are reported in original business units (Rs '000, %, counts) so they stay directly interpretable; a standardized version is produced separately below purely to rank driver importance on a comparable scale.
+
+==============================================================================
+6. MODEL BUILDING
+==============================================================================
+Fitted scikit-learn LinearRegression on the training set.
+
+Statsmodels OLS summary (training data):
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:        Monthly_Sales_K   R-squared:                       0.869
+Model:                            OLS   Adj. R-squared:                  0.864
+Method:                 Least Squares   F-statistic:                     158.7
+Date:                Sat, 04 Jul 2026   Prob (F-statistic):           8.34e-90
+Time:                        17:22:50   Log-Likelihood:                -1446.8
+No. Observations:                 225   AIC:                             2914.
+Df Residuals:                     215   BIC:                             2948.
+Df Model:                           9                                         
+Covariance Type:            nonrobust                                         
+==========================================================================================
+                             coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------------------
+const                   1481.5172     91.707     16.155      0.000    1300.758    1662.276
+Is_Festival_Month         90.7467     24.504      3.703      0.000      42.448     139.046
+Parking_Available         35.6518     21.295      1.674      0.096      -6.322      77.625
+Digital_Ad_Spend_K         0.1591      1.786      0.089      0.929      -3.361       3.679
+TV_Ad_Spend_K              6.3996      1.884      3.397      0.001       2.686      10.113
+Radio_Ad_Spend_K           7.9511      3.356      2.369      0.019       1.336      14.566
+Print_Ad_Spend_K          -0.4299      3.129     -0.137      0.891      -6.597       5.737
+Stockout_Rate_pct        -11.1616      1.971     -5.663      0.000     -15.046      -7.277
+Location_Type_Suburban  -753.6309     50.546    -14.910      0.000    -853.260    -654.001
+Location_Type_Urban     -383.4711     33.003    -11.619      0.000    -448.522    -318.420
+==============================================================================
+Omnibus:                       15.557   Durbin-Watson:                   1.918
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               19.068
+Skew:                           0.522   Prob(JB):                     7.23e-05
+Kurtosis:                       3.972   Cond. No.                         588.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+==============================================================================
+7. MODEL EVALUATION (HELD-OUT TEST SET)
+==============================================================================
+R^2            : 0.8271
+Adjusted R^2   : 0.8032
+RMSE           : Rs 173.37K
+MAE            : Rs 122.32K
+Mean actual sales in test set: Rs 1393.3K -> RMSE is 12.4% of the average store's sales.
+Saved predicted-vs-actual plot -> outputs/figures/04_predicted_vs_actual.png
+Saved residual distribution -> outputs/figures/05_residual_distribution.png
+Residual mean: 15.82 (near zero -> no systematic bias); residual std: 173.81.
+
+==============================================================================
+8. COEFFICIENT TABLE & INTERPRETATION
+==============================================================================
+               Feature  Coefficient  OLS_p_value  Significant_at_5pct
+     Is_Festival_Month    90.746680 2.705110e-04                 True
+     Parking_Available    35.651784 9.554505e-02                False
+      Radio_Ad_Spend_K     7.951064 1.870772e-02                 True
+         TV_Ad_Spend_K     6.399618 8.121996e-04                 True
+    Digital_Ad_Spend_K     0.159081 9.290952e-01                False
+      Print_Ad_Spend_K    -0.429867 8.908435e-01                False
+     Stockout_Rate_pct   -11.161620 4.729494e-08                 True
+   Location_Type_Urban  -383.471136 1.541167e-24                 True
+Location_Type_Suburban  -753.630914 5.413768e-35                 True
+
+Interpretation:
+  - A 1-unit rise in Is_Festival_Month increases predicted sales by Rs 90.75K, holding other factors constant (p=0.000, significant).
+  - A 1-unit rise in Parking_Available increases predicted sales by Rs 35.65K, holding other factors constant (p=0.096, not significant).
+  - A 1-unit rise in Radio_Ad_Spend_K increases predicted sales by Rs 7.95K, holding other factors constant (p=0.019, significant).
+  - A 1-unit rise in TV_Ad_Spend_K increases predicted sales by Rs 6.40K, holding other factors constant (p=0.001, significant).
+  - A 1-unit rise in Digital_Ad_Spend_K increases predicted sales by Rs 0.16K, holding other factors constant (p=0.929, not significant).
+  - A 1-unit rise in Print_Ad_Spend_K decreases predicted sales by Rs 0.43K, holding other factors constant (p=0.891, not significant).
+  - A 1-unit rise in Stockout_Rate_pct decreases predicted sales by Rs 11.16K, holding other factors constant (p=0.000, significant).
+  - A 1-unit rise in Location_Type_Urban decreases predicted sales by Rs 383.47K, holding other factors constant (p=0.000, significant).
+  - A 1-unit rise in Location_Type_Suburban decreases predicted sales by Rs 753.63K, holding other factors constant (p=0.000, significant).
+
+Saved standardized driver-importance tornado chart -> outputs/figures/06_driver_importance_tornado.png
+
+==============================================================================
+8a. MULTICOLLINEARITY CHECK (VIF)
+==============================================================================
+               Feature      VIF
+    Digital_Ad_Spend_K 4.535170
+Location_Type_Suburban 4.501206
+         TV_Ad_Spend_K 4.281520
+   Location_Type_Urban 2.418892
+      Radio_Ad_Spend_K 2.136505
+      Print_Ad_Spend_K 1.667460
+     Parking_Available 1.058153
+     Is_Festival_Month 1.044736
+     Stockout_Rate_pct 1.044731
+
+All features show VIF <= 5 — no strong multicollinearity detected.
+
+==============================================================================
+9. EXPORT PREDICTIONS & RESIDUALS
+==============================================================================
+Exported 300 rows -> outputs/freshmart_predictions_residuals.csv
+  Store_ID    Month Location_Type  ...  Predicted_Sales_K    Residual  Split
+0   FM1000  2024-06      Suburban  ...         959.243845  326.756155  Train
+1   FM1001  2024-07         Urban  ...        1474.332243   56.467757  Train
+2   FM1002  2024-07      Suburban  ...         730.979394   77.120606  Train
+3   FM1003  2024-07         Urban  ...        1288.208208  321.591792  Train
+4   FM1004  2024-01         Metro  ...        1761.694490  -46.094490  Train
+
+[5 rows x 14 columns]
+
+==============================================================================
+10. WHAT-IF PREDICTION SCENARIO
+==============================================================================
+Scenario: Urban store, festival month, parking available, Digital_Ad_Spend_K=55.0, Stockout_Rate_pct=5.0%.
+Predicted Monthly_Sales_K = Rs 1,446.7K (~ Rs 1,446,736 in monthly sales).
+Plain-language takeaway: for a well-stocked, festival-month urban store with parking and a digital-led ad mix, the model expects roughly Rs 1,447K in monthly sales — management can compare this against the actual budget cost of the proposed spend mix to judge ROI.
+
+==============================================================================
+11. REFLECTION
+==============================================================================
+
+1. Multicollinearity: See the VIF table above. Advertising channels (especially
+   TV and Digital spend) can move together when stores simply have larger
+   overall marketing budgets, which inflates the standard errors of their
+   individual coefficients even though the model's overall fit stays valid.
+
+2. Omitted variables: The data file used for this run supplied only 8 of the
+   20 predictors in the project's data dictionary. Store-level operational
+   and demographic variables that plausibly drive sales -- Store_Size_sqft,
+   Num_SKUs, Foot_Traffic, Customer_Rating, Loyalty_Members, Avg_Discount_pct,
+   Competitor_Distance_km, Local_Pop_Density, Avg_Household_Income_K,
+   Num_Employees, Store_Age_Years and Mgr_Tenure_Months -- were not present
+   in this file and are therefore omitted. If any of them correlate with both
+   an included predictor and sales, the reported coefficients could be biased
+   (omitted-variable bias). This model's R^2 should be read as a lower bound
+   on what a full 20-predictor model would achieve.
+
+3. Correlation vs causation: A positive coefficient on Digital_Ad_Spend_K
+   shows association, not proof that raising spend causes sales to rise --
+   e.g. head office may simply allocate bigger digital budgets to stores it
+   already expects to perform well. A/B testing (randomizing ad spend across
+   comparable stores) would be needed to make a causal claim.
+
+4. What additional data would help: store-level footfall and SKU-availability
+   detail, a longer time series per store (to add store fixed effects and
+   control for unobserved store quality), and a randomized or quasi-
+   experimental ad-spend design to separate causal lift from allocation bias.
+
+
+==============================================================================
+ANALYSIS COMPLETE
+==============================================================================
+All figures saved under outputs/figures/
+Predictions/residuals exported to outputs/freshmart_predictions_residuals.csv
